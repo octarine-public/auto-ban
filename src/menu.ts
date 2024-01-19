@@ -28,6 +28,9 @@ export class MenuManager {
 		this.heroAttribute.OnValue(call =>
 			this.UpdateHeroSelectedNodes(call, this.HeroSelected)
 		)
+		this.tree
+			.AddButton("Reset settings", "Reset settings to default")
+			.OnValue(() => this.ResetSettings())
 	}
 
 	public UnitAbilityDataUpdated() {
@@ -65,6 +68,7 @@ export class MenuManager {
 
 		imageSelector.values = heroes
 		imageSelector.Update()
+		this.tree.Update()
 	}
 
 	protected IsValidName(name: string, data: UnitData) {
