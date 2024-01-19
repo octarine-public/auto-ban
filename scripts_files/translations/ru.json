@@ -1,1 +1,9 @@
-{}
+{
+	"State": "Состояние",
+	"Strength": "Сила",
+	"Auto ban": "Авто бан",
+	"Agility": "Ловкость",
+	"Intellect": "Интеллект",
+	"Universal": "Универсальный",
+	"Primary attribute hero": "Основной атрибут героя"
+}
