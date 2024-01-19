@@ -21,15 +21,16 @@ const bootstrap = new (class CAutoBan {
 		return GameRules?.IsBanPhase ?? false
 	}
 
-	protected get IsInGame() {
-		return (
-			GameRules === undefined ||
-			GameRules.GameState !== DOTAGameState.DOTA_GAMERULES_STATE_HERO_SELECTION
-		)
+	protected get GameState() {
+		return GameRules?.GameState ?? DOTAGameState.DOTA_GAMERULES_STATE_INIT
+	}
+
+	protected get IsHeroSelection() {
+		return this.GameState === DOTAGameState.DOTA_GAMERULES_STATE_HERO_SELECTION
 	}
 
 	public PostDataUpdate() {
-		if (!GameState.IsConnected || this.IsInGame) {
+		if (!GameState.IsConnected || !this.IsHeroSelection) {
 			return
 		}
 		if (!this.menu.State.value || !this.IsBanPhase) {

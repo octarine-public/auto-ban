@@ -18,7 +18,7 @@ export class MenuManager {
 	private readonly attrNames = ["Strength", "Agility", "Intellect", "Universal"]
 
 	constructor(private readonly sleeper: Sleeper) {
-		this.tree = this.baseNode.AddNode("Auto Ban", ImageData.Paths.Icons.magic_resist)
+		this.tree = this.baseNode.AddNode("Auto ban", ImageData.Paths.Icons.magic_resist)
 		this.State = this.tree.AddToggle("State")
 		this.heroAttribute = this.tree.AddDropdown(
 			"Primary attribute hero",
