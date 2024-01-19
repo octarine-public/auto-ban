@@ -1,3 +1,5 @@
+import "./translations"
+
 import {
 	DOTA_CHAT_MESSAGE,
 	DOTAGameState,
