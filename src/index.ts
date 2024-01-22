@@ -14,6 +14,7 @@ import { MenuManager } from "./menu"
 
 const bootstrap = new (class CAutoBan {
 	private readonly sleeper = new Sleeper()
+	private readonly additionalDelay = 3 * 1000
 	private readonly menu = new MenuManager(this.sleeper)
 	private readonly heroesDisallowed = new Set<number>()
 
@@ -29,6 +30,12 @@ const bootstrap = new (class CAutoBan {
 		return this.GameState === DOTAGameState.DOTA_GAMERULES_STATE_HERO_SELECTION
 	}
 
+	protected get Delay() {
+		const ping = GameState.Ping,
+			delay = this.additionalDelay
+		return this.mtRand(delay / 2 + ping, delay + ping)
+	}
+
 	public PostDataUpdate() {
 		if (!GameState.IsConnected || !this.IsHeroSelection) {
 			return
@@ -41,7 +48,7 @@ const bootstrap = new (class CAutoBan {
 			return
 		}
 		GameState.ExecuteCommand(`dota_captain_ban_hero ${heroName}`)
-		this.sleeper.Sleep((1 / 30) * 2 + GameState.Ping, "banHero")
+		this.sleeper.Sleep(this.Delay, "banHero")
 	}
 
 	public OnChatEvent(type: DOTA_CHAT_MESSAGE, heroID: number) {
@@ -76,6 +83,10 @@ const bootstrap = new (class CAutoBan {
 				return name
 			}
 		}
+	}
+
+	private mtRand(min: number, max: number): number {
+		return Math.floor(Math.random() * (max - min + 1)) + min
 	}
 })()
 
